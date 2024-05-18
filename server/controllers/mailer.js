@@ -1,6 +1,8 @@
-const nodeMailer = require("nodemailer");
-const MailGen = require("mailgen");
-require("dotenv").config();
+import { createTransport } from "nodemailer";
+import MailGen from "mailgen";
+import dotenv from "dotenv";
+dotenv.config();
+
 
   const registerMail = async(req,res) => {
   const {username,userEmail,text, subject} = req.body;
@@ -14,12 +16,12 @@ require("dotenv").config();
     },
   };
 
-  let transporter = nodeMailer.createTransport(nodeConfig);
+  let transporter = createTransport(nodeConfig);
 
   let MailGenerator = new MailGen({
     theme: "default",
     product: {
-      name: "QuickClick",
+      name: "Kivaa",
       link: "https://mailgen.js/",
     },
   });
@@ -27,7 +29,7 @@ require("dotenv").config();
   let response = {
     body: {
       name: username,
-      intro: text || "Welcome to QuickClick Family",
+      intro: text || "Welcome Kivaa Family",
       outro: "Need help getting started? You can contact our support team 24/7. \n\n We're SO excited for your journey!",
       
     },
@@ -50,6 +52,6 @@ require("dotenv").config();
   
 }
 
-module.exports = {
+export {
 registerMail
 }

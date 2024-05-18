@@ -28,7 +28,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     getSingleProduct();
-  }, []);
+  }, [getSingleProduct]);
 
   if (!singleProduct) {
     return <div className="page_loading">loading....</div>;

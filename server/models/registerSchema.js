@@ -1,5 +1,5 @@
 
-const mongoose = require("mongoose");
+import mongoose, { model } from "mongoose";
 
 const { Schema } = mongoose;
 
@@ -26,4 +26,4 @@ const registerSchema = new Schema({
   profile: { type: String}
 });
 
-module.exports = mongoose.model("RegisterSchema", registerSchema);
+export default model("RegisterSchema", registerSchema);

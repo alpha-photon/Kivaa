@@ -1,22 +1,22 @@
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const multer = require("multer");
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
 
+// Configure Cloudinary storage engine
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
     return {
       folder: "nono",
       resource_type: "auto",
-      allowedFormats: ["jpeg", "png", "jpg", "mp3", "mp4", "mov"],
+      allowed_formats: ["jpeg", "png", "jpg", "mp3", "mp4", "mov"],
       transformation: [{ width: 500, height: 500, crop: "fill" }],
-      path: file.path,
+      public_id: file.originalname,
     };
   },
 });
 
-// console.log(storage.cloudinary.url)
+// Initialize multer middleware with Cloudinary storage engine
+const upload = multer({ storage: storage });
 
-const upload = multer({ storage });
-
-module.exports = upload;
+export {upload} ;

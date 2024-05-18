@@ -12,13 +12,9 @@ const HeroSection = (props) => {
             <div className="hero-section-data">
               <p>Welcome to</p>
               {/* eslint-disable-next-line react/prop-types */}
-              <h1>{props.myData}</h1>
+              <h1>Kivaa</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-                veniam voluptatibus doloremque soluta reprehenderit ea
-                praesentium, aspernatur minima non inventore corrupti
-                voluptates, sapiente officiis molestiae iure velit dicta rem
-                modi hic consequuntur.
+              Kivaa is a premier destination for exquisite home decor products, offering a curated selection of items to enhance every living space. Established with a passion for aesthetics and quality, Kivaa strives to inspire individuals to transform their houses into homes through beautiful and functional decor pieces.
               </p>
               <Link to='/products'>
                 <Button>Shop Now</Button>

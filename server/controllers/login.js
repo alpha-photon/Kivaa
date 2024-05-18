@@ -1,8 +1,11 @@
-const RegisterSchema = require("../models/registerSchema");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config(); 
-const otpGenerator = require("otp-generator");
+import RegisterSchema from "../models/registerSchema.js";
+import { hash, compare } from "bcrypt";
+import pkg from "jsonwebtoken";
+const { sign } = pkg;
+import dotenv from "dotenv";
+dotenv.config();
+
+import { generate } from "otp-generator";
 
 
 //** middleware for verify user */
@@ -38,7 +41,7 @@ const userRegister = async (req, res) => {
       }
 
         //create hash password
-        const hashpassword = await bcrypt.hash(password,10)
+        const hashpassword = await hash(password,10)
 
         //create user
         const newUser = new RegisterSchema({
@@ -71,14 +74,14 @@ const userLogin = async (req, res) => {
       return res.status(404).send({ error: "Username not found" });
     }
 
-    const passwordCheck = await bcrypt.compare(password, user.password);
+    const passwordCheck = await compare(password, user.password);
 
     if (!passwordCheck) {
       return res.status(400).send({ error: "Password does not match" });
     }
 
     // Create JWT token
-    const token = jwt.sign(
+    const token = sign(
       { userId: user._id, username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
@@ -146,7 +149,7 @@ const updateUser = async (req, res) => {
 //generate OTP
 const generateOTP = async (req, res) => {
 
-  req.app.locals.OTP = await otpGenerator.generate(6,{lowerCaseAlphabets:false,upperCaseAlphabets:false,specialChars:false});
+  req.app.locals.OTP = await generate(6,{lowerCaseAlphabets:false,upperCaseAlphabets:false,specialChars:false});
   res.status(201).send({code: req.app.locals.OTP})
 };
 
@@ -190,7 +193,7 @@ if (!req.app.locals.resetSession) return res.status(440).send({ error: "Session 
     }
 
     // Hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
 
     // Update the user password
     await RegisterSchema.updateOne({ username }, { password: hashedPassword });
@@ -201,7 +204,7 @@ if (!req.app.locals.resetSession) return res.status(440).send({ error: "Session 
   }
 };
 
-module.exports = {
+export  {
   userLogin,
   userRegister,
   getUser,

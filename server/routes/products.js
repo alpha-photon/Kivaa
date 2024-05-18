@@ -1,20 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const upload = require("../middleware/multer");
+import { Router } from "express";
+const router = Router();
+import  {upload}  from "../middleware/multer.js";
 
-const {
-  getAllProducts,
-  Create,
-  getSingleProduct,
-  deleteProduct,
-  updateProduct,
-  getQuery,
-  // getAllProductsTesting,
-} = require("../controllers/products");
+import { getAllProducts, Create, getSingleProduct, deleteProduct, updateProduct, getQuery } from "../controllers/products.js";
 //What to show when some one gose to "/" i.e home page
 //*post routes
-// router.route("/create").post(Create, upload.fields([{ name: "image" }]));
-router.post("/create", upload.fields([{ name: "image", maxCount: 1 }]), Create);
+ router.route("/create").post(Create, upload.fields([{ name: "image" }]));
+ router.post("/create", upload.single("image"), Create);
+
 router.route("/get").get(getAllProducts);
 router.route("/").get(getQuery);
 
@@ -25,4 +18,4 @@ router.route("/delete/:id").delete(deleteProduct);
 //*put routes
 router.route("/update/:id").put(updateProduct);
 
-module.exports = router;
+export default router;

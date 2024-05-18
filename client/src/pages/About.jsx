@@ -6,7 +6,7 @@ const About = () => {
   // const { myName } = useProductContext;
   // console.log(myName);
   const data = {
-    name: "QuickClick E-Commerce",
+    name: "Kivaa",
   };
   return (
     <>

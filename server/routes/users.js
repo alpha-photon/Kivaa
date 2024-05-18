@@ -1,18 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const {registerMail} = require("../controllers/mailer")
-const {
-  userLogin,
-  userRegister,
-  getUser,
-  verifyUser,
-  updateUser,
-  generateOTP,
-  verifyOTP,
-  createResetSession,
-  resetPassword,
-} = require("../controllers/login");
-const {Auth,localVariables} = require("../middleware/auth");
+import { Router } from "express";
+const router = Router();
+import { registerMail } from "../controllers/mailer.js";
+import { userLogin, userRegister, getUser, verifyUser, updateUser, generateOTP, verifyOTP, createResetSession, resetPassword } from "../controllers/login.js";
+import { Auth, localVariables } from "../middleware/auth.js";
 /** Post Methods */
 router.route("/login").post(verifyUser, userLogin);
 router.route("/register").post(userRegister);
@@ -29,4 +19,4 @@ router.route("/createResetSession").get(createResetSession);   //to reset variab
 /** Put Methods */
 router.route("/updateUser").put(Auth,updateUser);
 router.route("/resetPassword").put(verifyUser,resetPassword);
-module.exports = router;
+export default router;

@@ -1,6 +1,10 @@
 //Will use this file to Authenticate the user and then allow the user to update the profile
-const jwt = require("jsonwebtoken");
-require("dotenv").config(); 
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
+
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const Auth = async(req,res,next)=>{
     try {
@@ -9,7 +13,7 @@ const Auth = async(req,res,next)=>{
         //will get the token with bearer so we eill split the token and store it in the array
         const token = req.headers.authorization.split(" ")[1];
         //based on the token will retrive the data of the used
-        const decodedToken = await jwt.verify(token,process.env.JWT_SECRET);
+        const decodedToken = await verify(token,process.env.JWT_SECRET);
         //now based on this token will get the user 
         req.user = decodedToken;
 
@@ -38,4 +42,4 @@ resetSession : false
 next();
 }
 
-module.exports = {Auth,localVariables};
+export  {Auth,localVariables};

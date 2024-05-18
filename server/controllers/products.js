@@ -1,5 +1,5 @@
-const upload = require("../middleware/multer");
-const Product = require("../models/product");
+import {upload} from "../middleware/multer.js";
+import Product from "../models/product.js";
 const getAllProducts = async (req, res) => {
   try {
     const myData = await Product.find(); //return all data
@@ -128,7 +128,7 @@ const getQuery = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getAllProducts,
   Create,
   getSingleProduct,
